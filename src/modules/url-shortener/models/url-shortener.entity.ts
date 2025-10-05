@@ -12,13 +12,13 @@ const HOST = 'http://my-app.com';
 export class UrlEntity extends Entity<IUrlProps> {
   constructor(props: IUrlProps, id?: string) {
     super(props, id);
+    this.props.alias = this.generateAlias();
     this.props.clicks = this.props.clicks ?? 0;
   }
 
-  generateAlias(): string {
+  private generateAlias(): string {
     const createId = init({ length: 6 });
-    this.props.alias = createId();
-    return this.props.alias;
+    return createId();
   }
 
   get shortUrl(): string {

@@ -1,27 +1,19 @@
-import { InjectRepository } from '@mikro-orm/nestjs';
-import { EntityRepository } from '@mikro-orm/postgresql';
-import { Injectable } from '@nestjs/common';
-import { UrlModel } from 'src/entities/urls';
-import { UrlMapper } from '../mappers/url.mapper';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUrlDto } from '../models/url-shortener.dto';
 import { UrlEntity } from '../models/url-shortener.entity';
+import { UrlRepository } from '../repositories/url-repository';
 
 @Injectable()
 export class UrlShortenerService {
   constructor(
-    @InjectRepository(UrlModel)
-    private readonly urlRepository: EntityRepository<UrlModel>,
+    @Inject('UrlRepository')
+    private readonly urlRepository: UrlRepository,
   ) {}
 
   async create(dto: CreateUrlDto): Promise<UrlEntity> {
-    const url = UrlEntity.create({
-      originalUrl: dto.originalUrl,
-    });
-
-    url.generateAlias();
-
-    this.urlRepository.create(UrlMapper.toPersistence(url));
-
+    const { originalUrl } = dto;
+    const url = UrlEntity.create({ originalUrl });
+    await this.urlRepository.create(url);
     return url;
   }
 }
