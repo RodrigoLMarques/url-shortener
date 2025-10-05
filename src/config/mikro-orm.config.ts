@@ -4,8 +4,13 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env', quiet: true });
 
 const config: Options<PostgreSqlDriver> = {
-  entities: ['./dist/entities'],
-  entitiesTs: ['./src/entities'],
+  entities: ['./dist/database/entities'],
+  entitiesTs: ['./src/database/entities'],
+  migrations: {
+    path: './src/database/migrations',
+    pathTs: './src/database/migrations',
+    glob: '!(*.d).{js,ts}',
+  },
   host: process.env.POSTGRES_HOST,
   dbName: process.env.POSTGRES_DB,
   user: process.env.POSTGRES_USER,

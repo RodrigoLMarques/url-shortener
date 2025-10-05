@@ -1,4 +1,4 @@
-import { UrlModel } from 'src/entities/urls';
+import { UrlModel } from 'src/database/entities/urls';
 import { UrlEntity } from '../models/urls.entity';
 
 export class UrlMapper {
