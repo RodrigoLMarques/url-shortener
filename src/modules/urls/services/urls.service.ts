@@ -1,3 +1,4 @@
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateUrlDto } from '../models/urls.dto';
 import { UrlEntity } from '../models/urls.entity';
@@ -8,6 +9,8 @@ export class UrlService {
   constructor(
     @Inject(URL_REPOSITORY)
     private readonly repository: UrlRepository,
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
   ) {}
 
   async create(dto: CreateUrlDto): Promise<UrlEntity> {
@@ -18,8 +21,16 @@ export class UrlService {
   }
 
   async findByAlias(alias: string): Promise<UrlEntity> {
+    const cached = await this.cacheManager.get<ReturnType<UrlEntity['toJSON']>>(
+      `alias:${alias}`,
+    );
+    if (cached) return UrlEntity.fromJSON(cached);
+
     const url = await this.repository.findByAlias(alias);
     if (!url) throw new BadRequestException();
+
+    await this.cacheManager.set(`alias:${alias}`, url.toJSON(), 3600);
+
     return url;
   }
 

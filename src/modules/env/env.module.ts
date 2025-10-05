@@ -8,7 +8,6 @@ import { EnvService } from './env.service';
     ConfigModule.forRoot({
       validate: (env) => envSchema.parse(env),
       envFilePath: '.env',
-      isGlobal: true,
     }),
   ],
   providers: [EnvService],
