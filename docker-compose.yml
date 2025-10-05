@@ -29,7 +29,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: backend
     restart: unless-stopped
     ports:
@@ -37,7 +37,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./:/home/node/app
+      - ./:/usr/src/app
     depends_on:
       - postgres
       - redis

@@ -1,25 +1,11 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import config from './config/mikro-orm.config';
 import { EnvModule } from './modules/env/env.module';
-import { EnvService } from './modules/env/env.service';
+import { UrlShortenerModule } from './modules/url-shortener/url-shortener.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    EnvModule,
-    MikroOrmModule.forRootAsync({
-      useFactory: async (envService: EnvService) => ({
-        entities: ['./dist/entities'],
-        entitiesTs: ['./src/entities'],
-        dbName: envService.get('POSTGRES_DB'),
-      }),
-      imports: [EnvModule],
-      inject: [EnvService],
-      driver: PostgreSqlDriver,
-    }),
-  ],
+  imports: [EnvModule, MikroOrmModule.forRoot(config), UrlShortenerModule],
   controllers: [],
   providers: [],
 })
