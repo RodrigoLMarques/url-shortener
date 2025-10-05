@@ -1,18 +1,19 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property, Unique } from '@mikro-orm/core';
 
 @Entity({ tableName: 'urls' })
 export class UrlModel {
   @PrimaryKey({ columnType: 'varchar', length: 24 })
-  id: string;
+  id!: string;
 
   @Property({ fieldName: 'original_url' })
-  originalUrl: string;
+  originalUrl!: string;
 
   @Property()
-  alias: string;
+  @Unique()
+  alias!: string;
 
   @Property({ columnType: 'int' })
-  clicks: number;
+  clicks: number = 0;
 
   @Property({ fieldName: 'created_at' })
   createdAt = new Date();
@@ -21,5 +22,5 @@ export class UrlModel {
   updatedAt = new Date();
 
   @Property({ fieldName: 'deleted_at', nullable: true })
-  deletedAt?: Date | null;
+  deletedAt?: Date | null = null;
 }

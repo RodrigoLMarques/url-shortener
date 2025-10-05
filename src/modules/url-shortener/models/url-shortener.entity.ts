@@ -7,12 +7,12 @@ export type IUrlProps = {
   clicks?: number;
 };
 
-const HOST = 'http://my-app.com';
+const HOST = 'http://localhost:3000';
 
 export class UrlEntity extends Entity<IUrlProps> {
   constructor(props: IUrlProps, id?: string) {
     super(props, id);
-    this.props.alias = this.generateAlias();
+    this.props.alias = this.props.alias ?? this.generateAlias();
     this.props.clicks = this.props.clicks ?? 0;
   }
 

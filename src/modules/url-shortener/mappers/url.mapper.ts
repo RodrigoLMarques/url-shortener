@@ -3,7 +3,7 @@ import { UrlEntity } from '../models/url-shortener.entity';
 
 export class UrlMapper {
   static toDomain(raw: UrlModel): UrlEntity {
-    const url = UrlEntity.create(
+    return UrlEntity.create(
       {
         originalUrl: raw.originalUrl,
         alias: raw.alias,
@@ -11,8 +11,6 @@ export class UrlMapper {
       },
       raw.id,
     );
-
-    return url;
   }
 
   static toPersistence(url: UrlEntity): UrlModel {
