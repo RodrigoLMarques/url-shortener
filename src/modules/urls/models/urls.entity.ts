@@ -7,7 +7,8 @@ export type IUrlProps = {
   clicks?: number;
 };
 
-const HOST = 'http://localhost:3000';
+const DOMAIN = 'localhost:3000';
+const HOST = `http://${DOMAIN}`;
 
 export class UrlEntity extends Entity<IUrlProps> {
   constructor(props: IUrlProps, id?: string) {
@@ -17,12 +18,8 @@ export class UrlEntity extends Entity<IUrlProps> {
   }
 
   private generateAlias(): string {
-    const createId = init({ length: 6 });
+    const createId = init({ length: 4 });
     return createId();
-  }
-
-  get shortUrl(): string {
-    return `${HOST}/${this.props.alias}`;
   }
 
   incrementClick() {
@@ -39,6 +36,14 @@ export class UrlEntity extends Entity<IUrlProps> {
 
   get clicks() {
     return this.props.clicks;
+  }
+
+  get shortUrl(): string {
+    return `${HOST}/${this.props.alias}`;
+  }
+
+  get domain(): string {
+    return DOMAIN;
   }
 
   static create(props: IUrlProps, id?: string) {

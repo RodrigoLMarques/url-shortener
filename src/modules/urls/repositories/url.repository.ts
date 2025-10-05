@@ -1,4 +1,4 @@
-import { UrlEntity } from '../models/url-shortener.entity';
+import { UrlEntity } from '../models/urls.entity';
 
 export abstract class UrlRepository {
   abstract create(entity: UrlEntity): Promise<void>;

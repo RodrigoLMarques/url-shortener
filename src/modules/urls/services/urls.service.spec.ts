@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UrlShortenerService } from './url-shortener.service';
+import { UrlService } from './urls.service';
 
-describe('UrlShortenerService', () => {
-  let service: UrlShortenerService;
+describe('UrlService', () => {
+  let service: UrlService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UrlShortenerService],
+      providers: [UrlService],
     }).compile();
 
-    service = module.get<UrlShortenerService>(UrlShortenerService);
+    service = module.get<UrlService>(UrlService);
   });
 
   it('should be defined', () => {

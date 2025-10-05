@@ -1,20 +1,20 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { UrlModel } from 'src/entities/urls';
-import { UrlShortenerController } from './controller/url-shortener.controller';
+import { UrlController } from './controller/urls.controller';
 import { MikroOrmUrlRepository } from './repositories/mikro-orm/mikro-orm-url.repository';
-import { URL_REPOSITORY } from './repositories/url-repository';
-import { UrlShortenerService } from './services/url-shortener.service';
+import { URL_REPOSITORY } from './repositories/url.repository';
+import { UrlService } from './services/urls.service';
 
 @Module({
   imports: [MikroOrmModule.forFeature([UrlModel])],
-  controllers: [UrlShortenerController],
+  controllers: [UrlController],
   providers: [
-    UrlShortenerService,
+    UrlService,
     {
       provide: URL_REPOSITORY,
       useClass: MikroOrmUrlRepository,
     },
   ],
 })
-export class UrlShortenerModule {}
+export class UrlModule {}

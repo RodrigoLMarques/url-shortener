@@ -1,10 +1,10 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { CreateUrlDto } from '../models/url-shortener.dto';
-import { UrlEntity } from '../models/url-shortener.entity';
-import { URL_REPOSITORY, UrlRepository } from '../repositories/url-repository';
+import { CreateUrlDto } from '../models/urls.dto';
+import { UrlEntity } from '../models/urls.entity';
+import { URL_REPOSITORY, UrlRepository } from '../repositories/url.repository';
 
 @Injectable()
-export class UrlShortenerService {
+export class UrlService {
   constructor(
     @Inject(URL_REPOSITORY)
     private readonly repository: UrlRepository,
@@ -17,9 +17,14 @@ export class UrlShortenerService {
     return url;
   }
 
-  async redirect(alias: string): Promise<UrlEntity> {
+  async findByAlias(alias: string): Promise<UrlEntity> {
     const url = await this.repository.findByAlias(alias);
     if (!url) throw new BadRequestException();
+    return url;
+  }
+
+  async redirect(alias: string): Promise<UrlEntity> {
+    const url = await this.findByAlias(alias);
     url.incrementClick();
     this.repository.save(url);
     return url;

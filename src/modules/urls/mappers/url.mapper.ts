@@ -1,5 +1,5 @@
 import { UrlModel } from 'src/entities/urls';
-import { UrlEntity } from '../models/url-shortener.entity';
+import { UrlEntity } from '../models/urls.entity';
 
 export class UrlMapper {
   static toDomain(raw: UrlModel): UrlEntity {

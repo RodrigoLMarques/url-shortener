@@ -1,4 +1,4 @@
-import { UrlEntity } from '../models/url-shortener.entity';
+import { UrlEntity } from '../models/urls.entity';
 
 export class UrlPresenter {
   id: string;
@@ -6,6 +6,7 @@ export class UrlPresenter {
   shortUrl: string;
   alias?: string;
   clicks?: number;
+  domain: string;
 
   constructor(entity: UrlEntity) {
     this.id = entity.id;
@@ -13,14 +14,15 @@ export class UrlPresenter {
     this.shortUrl = entity.shortUrl;
     this.alias = entity.alias;
     this.clicks = entity.clicks;
+    this.domain = entity.domain;
   }
 
   toJSON() {
     return {
-      id: this.id,
       originalUrl: this.originalUrl,
       shortUrl: this.shortUrl,
       alias: this.alias,
+      domain: this.domain,
       clicks: this.clicks,
     };
   }

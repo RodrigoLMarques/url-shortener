@@ -1,7 +1,7 @@
 import { Options } from '@mikro-orm/core';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import * as dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '.env', quiet: true });
 
 const config: Options<PostgreSqlDriver> = {
   entities: ['./dist/entities'],

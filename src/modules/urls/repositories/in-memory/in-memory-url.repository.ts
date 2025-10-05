@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UrlEntity } from '../../models/url-shortener.entity';
-import { UrlRepository } from '../url-repository';
+import { UrlEntity } from '../../models/urls.entity';
+import { UrlRepository } from '../url.repository';
 
 @Injectable()
 export class InMemoryUrlRepository implements UrlRepository {
@@ -10,11 +10,11 @@ export class InMemoryUrlRepository implements UrlRepository {
     this.entities.push(entity);
   }
 
-async save(entity: UrlEntity): Promise<void> {
-  const index = this.entities.findIndex((e) => e.alias === entity.alias);
-  if (index === -1) return;
-  this.entities[index] = entity;
-}
+  async save(entity: UrlEntity): Promise<void> {
+    const index = this.entities.findIndex((e) => e.alias === entity.alias);
+    if (index === -1) return;
+    this.entities[index] = entity;
+  }
 
   async findByAlias(alias: string): Promise<UrlEntity | null> {
     const entity = this.entities.find((e) => e.alias === alias);
