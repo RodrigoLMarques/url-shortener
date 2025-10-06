@@ -1,14 +1,15 @@
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUrlDto } from '../models/urls.dto';
-import { UrlEntity } from '../models/urls.entity';
-import { URL_REPOSITORY, UrlRepository } from '../repositories/url.repository';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateUrlDto } from '../dto/create-url.dto';
+import { UrlEntity } from '../entities/url.entity';
+import type { IUrlRepository } from '../repositories/url-repository.interface';
+import { URL_REPOSITORY } from '../repositories/url-repository.interface';
 
 @Injectable()
 export class UrlService {
   constructor(
     @Inject(URL_REPOSITORY)
-    private readonly repository: UrlRepository,
+    private readonly repository: IUrlRepository,
     @Inject(CACHE_MANAGER)
     private cacheManager: Cache,
   ) {}

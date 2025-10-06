@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UrlEntity } from '../models/urls.entity';
+import { UrlEntity } from '../entities/url.entity';
 
 export class UrlPresenter {
   @ApiProperty({ description: 'The original URL', example: 'https://www.google.com' })

@@ -20,9 +20,9 @@ import {
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import type { Response } from 'express';
-import { CreateUrlDto } from '../models/urls.dto';
+import { CreateUrlDto } from '../dto/create-url.dto';
 import { UrlService } from '../services/urls.service';
-import { UrlPresenter } from './urls.presenter';
+import { UrlPresenter } from '../presenters/urls.presenter';
 
 @ApiTags('URL Shortener')
 @Controller()

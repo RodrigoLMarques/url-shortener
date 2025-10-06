@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UrlEntity } from '../../models/urls.entity';
-import { UrlRepository } from '../url.repository';
+import { UrlEntity } from '../../entities/url.entity';
+import { IUrlRepository } from '../url-repository.interface';
 
 @Injectable()
-export class InMemoryUrlRepository implements UrlRepository {
+export class InMemoryUrlRepository implements IUrlRepository {
   constructor(public entities: UrlEntity[] = []) {}
 
   async create(entity: UrlEntity): Promise<void> {
