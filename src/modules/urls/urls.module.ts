@@ -24,6 +24,7 @@ import { UrlService } from './services/urls.service';
         return { store: keyv };
       },
     }),
+    EnvModule,
   ],
   controllers: [UrlController],
   providers: [

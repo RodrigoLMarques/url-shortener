@@ -5,12 +5,13 @@ export type IUrlProps = {
   originalUrl: string;
   alias?: string;
   clicks?: number;
+  protocol: string;
+  domain: string;
 };
 
-const DOMAIN = 'localhost:3000';
-const HOST = `http://${DOMAIN}`;
-
 export class UrlEntity extends Entity<IUrlProps> {
+  private readonly host: string;
+
   constructor(props: IUrlProps, id?: string) {
     super(props, id);
     this.props.alias = this.props.alias ?? this.generateAlias();
@@ -39,11 +40,11 @@ export class UrlEntity extends Entity<IUrlProps> {
   }
 
   get shortUrl(): string {
-    return `${HOST}/${this.props.alias}`;
+    return `${this.props.protocol}:\/\/${this.props.domain}/${this.props.alias}`;
   }
 
   get domain(): string {
-    return DOMAIN;
+    return this.props.domain;
   }
 
   static create(props: IUrlProps, id?: string) {
