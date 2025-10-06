@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  deploy-to-staging:
-    runs-on: ubuntu-24.04
+  deploy:
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
@@ -35,3 +35,10 @@ jobs:
           tags: |
             ghcr.io/rodrigolmarques/url-shortener:latest
             ghcr.io/rodrigolmarques/url-shortener:${{ github.sha }}
+
+      - name: Atualizar container
+        run: |
+          cd ~/homelab/stacks/projects
+          docker compose pull url-shortener-api
+          docker compose up -d url-shortener-api
+
