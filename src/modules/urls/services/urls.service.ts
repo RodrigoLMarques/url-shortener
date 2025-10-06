@@ -1,5 +1,5 @@
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUrlDto } from '../models/urls.dto';
 import { UrlEntity } from '../models/urls.entity';
 import { URL_REPOSITORY, UrlRepository } from '../repositories/url.repository';
@@ -27,7 +27,7 @@ export class UrlService {
     if (cached) return UrlEntity.fromJSON(cached);
 
     const url = await this.repository.findByAlias(alias);
-    if (!url) throw new BadRequestException();
+    if (!url) throw new NotFoundException('URL not found');
 
     await this.cacheManager.set(`alias:${alias}`, url.toJSON(), 3600);
 

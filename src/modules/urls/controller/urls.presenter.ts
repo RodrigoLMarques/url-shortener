@@ -1,29 +1,27 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { UrlEntity } from '../models/urls.entity';
 
 export class UrlPresenter {
-  id: string;
+  @ApiProperty({ description: 'The original URL', example: 'https://www.google.com' })
   originalUrl: string;
+
+  @ApiProperty({ description: 'The shortened URL', example: 'http://localhost:3000/abc123' })
   shortUrl: string;
-  alias?: string;
-  clicks?: number;
+
+  @ApiProperty({ description: 'The unique URL alias', example: 'abc123' })
+  alias: string;
+
+  @ApiProperty({ description: 'The service domain', example: 'localhost:3000' })
   domain: string;
 
+  @ApiProperty({ description: 'Number of clicks on the URL', example: 0 })
+  clicks: number;
+
   constructor(entity: UrlEntity) {
-    this.id = entity.id;
     this.originalUrl = entity.originalUrl;
     this.shortUrl = entity.shortUrl;
-    this.alias = entity.alias;
-    this.clicks = entity.clicks;
+    this.alias = entity.alias!;
     this.domain = entity.domain;
-  }
-
-  toJSON() {
-    return {
-      originalUrl: this.originalUrl,
-      shortUrl: this.shortUrl,
-      alias: this.alias,
-      domain: this.domain,
-      clicks: this.clicks,
-    };
+    this.clicks = entity.clicks!;
   }
 }
