@@ -1,11 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UrlEntity } from '../entities/url.entity';
+import { UrlEntity } from '../models/url.entity';
 
 export class UrlPresenter {
-  @ApiProperty({ description: 'The original URL', example: 'https://www.google.com' })
+  @ApiProperty({
+    description: 'The original URL',
+    example: 'https://www.google.com',
+  })
   originalUrl: string;
 
-  @ApiProperty({ description: 'The shortened URL', example: 'http://localhost:3000/abc123' })
+  @ApiProperty({
+    description: 'The shortened URL',
+    example: 'http://localhost:3000/abc123',
+  })
   shortUrl: string;
 
   @ApiProperty({ description: 'The unique URL alias', example: 'abc123' })

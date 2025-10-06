@@ -11,10 +11,10 @@ const config: Options<PostgreSqlDriver> = {
     pathTs: './src/database/migrations',
     glob: '!(*.d).{js,ts}',
   },
-  host: process.env.POSTGRES_HOST,
-  dbName: process.env.POSTGRES_DB,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
+  host: process.env.DATABASE_HOST,
+  dbName: process.env.DATABASE_DB,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
   driver: PostgreSqlDriver,
 };
 

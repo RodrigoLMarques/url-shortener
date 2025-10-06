@@ -9,20 +9,20 @@ import {
   Res,
 } from '@nestjs/common';
 import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
+  ApiBadRequestResponse,
   ApiBody,
   ApiCreatedResponse,
-  ApiOkResponse,
-  ApiBadRequestResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import type { Response } from 'express';
-import { CreateUrlDto } from '../dto/create-url.dto';
+import { CreateUrlDto } from '../models/create-url.dto';
+import { UrlPresenter } from '../mappers/urls.presenter';
 import { UrlService } from '../services/urls.service';
-import { UrlPresenter } from '../presenters/urls.presenter';
 
 @ApiTags('URL Shortener')
 @Controller()
@@ -31,7 +31,8 @@ export class UrlController {
 
   @ApiOperation({
     summary: 'Create a new shortened URL',
-    description: 'Receives an original URL and returns a shortened URL with unique alias',
+    description:
+      'Receives an original URL and returns a shortened URL with unique alias',
   })
   @ApiBody({
     type: CreateUrlDto,
@@ -85,7 +86,8 @@ export class UrlController {
 
   @ApiOperation({
     summary: 'Redirect to original URL',
-    description: 'Redirects the user to the original URL and increments the click counter',
+    description:
+      'Redirects the user to the original URL and increments the click counter',
   })
   @ApiParam({
     name: 'alias',

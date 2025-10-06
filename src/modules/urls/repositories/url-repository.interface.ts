@@ -1,4 +1,4 @@
-import { UrlEntity } from '../entities/url.entity';
+import { UrlEntity } from '../models/url.entity';
 
 export interface IUrlRepository {
   create(entity: UrlEntity): Promise<void>;

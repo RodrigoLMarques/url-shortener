@@ -1,5 +1,5 @@
 import { UrlModel } from 'src/database/entities/urls';
-import { UrlEntity } from '../entities/url.entity';
+import { UrlEntity } from '../models/url.entity';
 
 export class UrlMapper {
   static toDomain(raw: UrlModel): UrlEntity {

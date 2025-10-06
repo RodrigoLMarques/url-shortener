@@ -1,8 +1,8 @@
 import { EntityManager, wrap } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 import { UrlModel } from 'src/database/entities/urls';
-import { UrlEntity } from '../../entities/url.entity';
 import { UrlMapper } from '../../mappers/url.mapper';
+import { UrlEntity } from '../../models/url.entity';
 import { IUrlRepository } from '../url-repository.interface';
 
 @Injectable()

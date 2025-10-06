@@ -1,7 +1,7 @@
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUrlDto } from '../dto/create-url.dto';
-import { UrlEntity } from '../entities/url.entity';
+import { CreateUrlDto } from '../models/create-url.dto';
+import { UrlEntity } from '../models/url.entity';
 import type { IUrlRepository } from '../repositories/url-repository.interface';
 import { URL_REPOSITORY } from '../repositories/url-repository.interface';
 

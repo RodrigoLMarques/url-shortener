@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UrlEntity } from '../../entities/url.entity';
+import { UrlEntity } from '../../models/url.entity';
 import { IUrlRepository } from '../url-repository.interface';
 
 @Injectable()
