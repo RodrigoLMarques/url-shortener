@@ -36,7 +36,6 @@ This is a production-ready URL shortening service that provides:
 - **Documentation**: Interactive Swagger UI
 
 **Live Demo**: https://link.marquesdev.com
-> ⚠️ **Service Status**: Currently offline
 
 ## Swagger
 
