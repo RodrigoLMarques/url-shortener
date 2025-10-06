@@ -43,6 +43,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "default": "0",
           "mappedType": "integer"
         },
         "created_at": {
@@ -79,6 +80,16 @@
       "name": "urls",
       "schema": "public",
       "indexes": [
+        {
+          "columnNames": [
+            "alias"
+          ],
+          "composite": false,
+          "keyName": "urls_alias_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
         {
           "keyName": "urls_pkey",
           "columnNames": [
