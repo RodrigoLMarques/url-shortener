@@ -21,6 +21,7 @@
 - [Project](#project)
 - [API Features](#api-features)
 - [Swagger](#swagger)
+- [Database Documentation](#database-documentation)
 - [Running the Project](#running-the-project)
 - [Running Tests](#running-tests)
 
@@ -50,6 +51,19 @@ Interactive API documentation is available at `/api`:
 - **Request/Response Examples**: Comprehensive examples for all endpoints
 - **Schema Validation**: Automatic validation documentation
 - **Error Responses**: Documented error codes and messages
+
+## Database Documentation
+
+The database schema is documented using DBML (Database Markup Language) for easy visualization.
+
+### Visual Schema
+
+To view the interactive database diagram:
+
+1. **Access dbdiagram.io**: https://dbdiagram.io/
+2. **Copy the schema**: Open `database-schema.dbml` file
+3. **Paste and visualize**: Paste the content into the dbdiagram.io editor
+4. **Interactive diagram**: Explore tables, relationships, and indexes
 
 ## Running the Project
 

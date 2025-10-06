@@ -1,0 +1,16 @@
+Project url_shortener {
+  database_type: 'PostgreSQL'
+  Note: 'URL Shortener API Database Schema'
+}
+
+Table urls {
+  id varchar(24) [pk, not null]
+  original_url text [not null]
+  alias varchar [unique, not null]
+  clicks int [default: 0, not null]
+  created_at timestamptz [default: `now()`, not null]
+  updated_at timestamptz [default: `now()`, not null]
+  deleted_at timestamptz [null]
+
+  Note: 'Stores shortened URLs'
+}
