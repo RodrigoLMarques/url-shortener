@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-to-staging:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Build the Docker image
+        run: |
+          TAG=$(git rev-parse --short HEAD)
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository_owner }}/url-shortener" | tr '[:upper:]' '[:lower:]')
+
+          docker build -f Dockerfile -t $IMAGE_NAME:$TAG .
+          docker push $IMAGE_NAME:$TAG
+          
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest
