@@ -7,9 +7,9 @@ const config: Options<PostgreSqlDriver> = {
   entities: ['./dist/database/entities'],
   entitiesTs: ['./src/database/entities'],
   migrations: {
-    path: './src/database/migrations',
+    path: './dist/database/migrations',
     pathTs: './src/database/migrations',
-    glob: '!(*.d).{js,ts}',
+    glob: '!(*.d).js',
   },
   host: process.env.DATABASE_HOST,
   dbName: process.env.DATABASE_DB,
