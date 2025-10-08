@@ -22,7 +22,7 @@ jobs:
       - name: Build and push ARM image
         run: |
           TAG=${GITHUB_SHA}
-          IMAGE_NAME=ghcr.io/rodrigolmarques/url-shortener
+          IMAGE_NAME=ghcr.io/rodrigolmarques/url-shortener-api
           
           docker build --platform linux/arm64 -t $IMAGE_NAME:latest -t $IMAGE_NAME:$TAG .
           docker push $IMAGE_NAME:latest
