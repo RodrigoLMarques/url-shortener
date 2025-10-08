@@ -32,7 +32,7 @@ export class MikroOrmUrlRepository implements IUrlRepository {
     await this.em.flush();
   }
 
-  async findByAlias(alias: string): Promise<UrlEntity | null> {
+  async getByAlias(alias: string): Promise<UrlEntity | null> {
     const data = await this.em.findOne(UrlModel, { alias });
     if (!data) return null;
     return UrlMapper.toDomain(data, this.protocol, this.domain);

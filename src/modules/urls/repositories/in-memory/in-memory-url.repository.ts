@@ -16,7 +16,7 @@ export class InMemoryUrlRepository implements IUrlRepository {
     this.entities[index] = entity;
   }
 
-  async findByAlias(alias: string): Promise<UrlEntity | null> {
+  async getByAlias(alias: string): Promise<UrlEntity | null> {
     const entity = this.entities.find((e) => e.alias === alias);
     if (!entity) return null;
     return entity;

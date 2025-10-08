@@ -20,8 +20,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import type { Response } from 'express';
-import { CreateUrlDto } from '../models/create-url.dto';
 import { UrlPresenter } from '../mappers/urls.presenter';
+import { CreateUrlDto } from '../models/create-url.dto';
 import { UrlService } from '../services/urls.service';
 
 @ApiTags('URL Shortener')
@@ -79,8 +79,8 @@ export class UrlController {
     description: 'URL not found',
   })
   @Get('urls/:alias')
-  async findByAlias(@Param('alias') alias: string) {
-    const entity = await this.urlService.findByAlias(alias);
+  async getByAlias(@Param('alias') alias: string) {
+    const entity = await this.urlService.getByAlias(alias);
     return new UrlPresenter(entity);
   }
 

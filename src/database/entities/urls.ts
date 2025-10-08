@@ -1,10 +1,19 @@
-import { Entity, PrimaryKey, Property, Unique } from '@mikro-orm/core';
+import {
+  Collection,
+  Entity,
+  Index,
+  OneToMany,
+  OneToOne,
+  Property,
+  Unique,
+} from '@mikro-orm/core';
+import { BaseEntity } from './base-entity';
+import { UrlClickModel } from './url-clicks';
+import { UrlMetadataModel } from './url-metadata';
 
 @Entity({ tableName: 'urls' })
-export class UrlModel {
-  @PrimaryKey({ columnType: 'varchar', length: 24 })
-  id!: string;
-
+@Index({ properties: ['alias'] })
+export class UrlModel extends BaseEntity {
   @Property({ fieldName: 'original_url' })
   originalUrl!: string;
 
@@ -12,15 +21,12 @@ export class UrlModel {
   @Unique()
   alias!: string;
 
-  @Property({ columnType: 'int' })
-  clicks: number = 0;
+  @Property()
+  expires_at?: Date;
 
-  @Property({ fieldName: 'created_at' })
-  createdAt = new Date();
+  @OneToMany(() => UrlClickModel, (click) => click.url)
+  clicks = new Collection<UrlClickModel>(this);
 
-  @Property({ fieldName: 'updated_at', onUpdate: () => new Date() })
-  updatedAt = new Date();
-
-  @Property({ fieldName: 'deleted_at', nullable: true })
-  deletedAt?: Date | null = null;
+  @OneToOne(() => UrlMetadataModel, (metadata) => metadata.url)
+  metadata?: UrlMetadataModel;
 }
