@@ -21,7 +21,6 @@
 ## Table of Contents
 
 - [Project](#project)
-- [API Features](#api-features)
 - [Tech Stack](#tech-stack)
 - [Swagger](#swagger)
 - [Database Documentation](#database-documentation)
@@ -46,7 +45,9 @@ This is a production-ready URL shortening service that provides:
 - **Documentation**: Interactive Swagger UI
 
 **API Production**: https://link.marquesdev.com
+
 **WEB Production**: https://link.marquesdev.com/web
+
 **Frontend Repository**: [url-shortener-web](https://github.com/RodrigoLMarques/url-shortener-web)
 
 ## Tech Stack
