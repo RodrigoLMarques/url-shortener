@@ -5,6 +5,7 @@ export const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
   APP_DOMAIN: z.string().default('localhost:3000'),
   APP_PROTOCOL: z.enum(['http', 'https']).default('http'),
+  CORS_ORIGINS: z.string().default('http://localhost:5173'),
   DATABASE_DB: z.string(),
   DATABASE_USER: z.string(),
   DATABASE_PASSWORD: z.string(),

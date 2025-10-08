@@ -21,8 +21,9 @@ async function bootstrap() {
     }),
   );
 
+  const corsOrigins = envService.get('CORS_ORIGINS');
   app.enableCors({
-    origin: ['http://localhost:5173', 'https://link.marquesdev.com'],
+    origin: corsOrigins.split(',').map((origin) => origin.trim()),
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -30,7 +31,7 @@ async function bootstrap() {
 
   const documentFactory = () =>
     SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('docs', app, documentFactory);
 
   const port = envService.get('PORT');
   await app.listen(port);
