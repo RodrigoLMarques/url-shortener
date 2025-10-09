@@ -7,10 +7,50 @@ Table urls {
   id varchar(24) [pk, not null]
   original_url text [not null]
   alias varchar [unique, not null]
-  clicks int [default: 0, not null]
+  expires_at timestamptz [null]
   created_at timestamptz [default: `now()`, not null]
   updated_at timestamptz [default: `now()`, not null]
   deleted_at timestamptz [null]
 
-  Note: 'Stores shortened URLs'
+  Indexes {
+    alias [name: 'urls_alias_index']
+  }
+
+  Note: 'Stores shortened URLs with expiration support'
 }
+
+Table url_metadata {
+  id varchar(24) [pk, not null]
+  title text [null]
+  description text [null]
+  image_url text [null]
+  site_name text [null]
+  status_code int [null]
+  fetched_at timestamptz [null]
+  url_id varchar(24) [unique, not null, ref: - urls.id]
+  created_at timestamptz [default: `now()`, not null]
+  updated_at timestamptz [default: `now()`, not null]
+  deleted_at timestamptz [null]
+
+  Note: 'Stores metadata fetched from original URLs (Open Graph, etc.)'
+}
+
+Table url_clicks {
+  id varchar(24) [pk, not null]
+  clicked_at timestamptz [default: `now()`, not null]
+  ip_address varchar [null]
+  country varchar [null]
+  city varchar [null]
+  referrer text [null]
+  user_agent text [null]
+  device_type varchar [null]
+  os varchar [null]
+  browser varchar [null]
+  url_id varchar(24) [not null, ref: > urls.id]
+  created_at timestamptz [default: `now()`, not null]
+  updated_at timestamptz [default: `now()`, not null]
+  deleted_at timestamptz [null]
+
+  Note: 'Tracks each click on shortened URLs with analytics data'
+}
+
