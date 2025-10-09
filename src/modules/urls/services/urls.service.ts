@@ -2,6 +2,7 @@ import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClickData } from 'src/modules/url-clicks/models/url-click.dto';
 import { UrlClicksService } from 'src/modules/url-clicks/services/url-clicks.service';
+import { UrlMetadataService } from 'src/modules/url-metadata/services/url-metadata.service';
 import { CreateUrlDto } from '../models/url.dto';
 import { UrlEntity } from '../models/url.entity';
 import {
@@ -19,12 +20,14 @@ export class UrlService {
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
     private readonly urlClicksService: UrlClicksService,
+    private readonly urlMetadataService: UrlMetadataService,
   ) {}
 
   async create(dto: CreateUrlDto): Promise<UrlEntity> {
     const { originalUrl } = dto;
     const url = UrlEntity.create({ originalUrl });
     await this.repository.create(url);
+    await this.urlMetadataService.create({ urlId: url.id, originalUrl });
     return url;
   }
 

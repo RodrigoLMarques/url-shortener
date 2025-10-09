@@ -4,18 +4,20 @@ import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import config from './config/mikro-orm.config';
 import { EnvModule } from './modules/env/env.module';
-import { UrlModule } from './modules/urls/urls.module';
 import { UrlClicksModule } from './modules/url-clicks/url-clicks.module';
+import { UrlMetadataModule } from './modules/url-metadata/url-metadata.module';
+import { UrlModule } from './modules/urls/urls.module';
 
 @Module({
   imports: [
     EnvModule,
     MikroOrmModule.forRoot(config),
+    UrlClicksModule,
+    UrlMetadataModule,
     UrlModule,
     ThrottlerModule.forRoot({
       throttlers: [{ name: 'default', ttl: 1000, limit: 4 }],
     }),
-    UrlClicksModule,
   ],
   controllers: [],
   providers: [

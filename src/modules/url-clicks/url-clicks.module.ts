@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MikroOrmUrlClickRepository } from './repositories/mikro-orm/mikro-orm-url.repository';
+import { MikroOrmUrlClickRepository } from './repositories/mikro-orm/mikro-orm-url-click.repository';
 import { URL_CLICK_REPOSITORY } from './repositories/url-repository.interface';
 import { ClickEnrichmentService } from './services/click-enrichment.service';
 import { UrlClicksService } from './services/url-clicks.service';

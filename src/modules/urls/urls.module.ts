@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { EnvModule } from '../env/env.module';
 import { EnvService } from '../env/env.service';
 import { UrlClicksModule } from '../url-clicks/url-clicks.module';
+import { UrlMetadataModule } from '../url-metadata/url-metadata.module';
 import { UrlController } from './controllers/urls.controller';
 import { UrlPresenter } from './mappers/urls.presenter';
 import { MikroOrmUrlRepository } from './repositories/mikro-orm/mikro-orm-url.repository';
@@ -28,15 +29,16 @@ import { UrlService } from './services/urls.service';
     }),
     EnvModule,
     UrlClicksModule,
+    UrlMetadataModule,
   ],
   controllers: [UrlController],
   providers: [
     UrlService,
+    UrlPresenter,
     {
       provide: URL_REPOSITORY,
       useClass: MikroOrmUrlRepository,
     },
-    UrlPresenter,
   ],
 })
 export class UrlModule {}
