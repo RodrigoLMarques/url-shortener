@@ -1,0 +1,62 @@
+export const platformMap: Record<string, string> = {
+  'twitter.com': 'Twitter',
+  't.co': 'Twitter',
+  'x.com': 'X (Twitter)',
+  'facebook.com': 'Facebook',
+  'fb.com': 'Facebook',
+  'instagram.com': 'Instagram',
+  'linkedin.com': 'LinkedIn',
+  'tiktok.com': 'TikTok',
+  'reddit.com': 'Reddit',
+  'pinterest.com': 'Pinterest',
+  'threads.net': 'Threads',
+  'google.com': 'Google',
+  'bing.com': 'Bing',
+  'yahoo.com': 'Yahoo',
+  'duckduckgo.com': 'DuckDuckGo',
+  'whatsapp.com': 'WhatsApp',
+  'wa.me': 'WhatsApp',
+  'telegram.org': 'Telegram',
+  't.me': 'Telegram',
+  'slack.com': 'Slack',
+  'discord.com': 'Discord',
+};
+
+export const socialKeywords = [
+  'twitter.com',
+  't.co',
+  'facebook.com',
+  'fb.com',
+  'instagram.com',
+  'linkedin.com',
+  'tiktok.com',
+  'reddit.com',
+  'pinterest.com',
+  'snapchat.com',
+  'threads.net',
+  'x.com',
+];
+
+export const searchKeywords = [
+  'google.com',
+  'google.com.br',
+  'bing.com',
+  'yahoo.com',
+  'duckduckgo.com',
+  'baidu.com',
+  'yandex.com',
+  'ask.com',
+];
+
+export const messagingKeywords = [
+  'whatsapp.com',
+  'wa.me',
+  'api.whatsapp.com',
+  'telegram.org',
+  't.me',
+  'slack.com',
+  'discord.com',
+  'messenger.com',
+  'wechat.com',
+  'signal.org',
+];

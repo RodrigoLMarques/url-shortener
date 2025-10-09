@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import ogs from 'open-graph-scraper';
 import { OgObject } from 'open-graph-scraper/types';
-import { tryCatch } from 'src/helpers/try-catch';
+import { tryCatchAsync } from 'src/helpers/try-catch';
 import { CreateUrlMetadataDto } from '../models/url-metadata.dto';
 import { UrlMetadataEntity } from '../models/url-metadata.entity';
 import { MikroOrmUrlMetadataRepository } from '../repositories/mikro-orm/mikro-orm-url-metadata.repository';
@@ -33,7 +33,7 @@ export class UrlMetadataService {
   }
 
   private async fetchMetadata(url: string): Promise<OpenGraphResult | null> {
-    const [data, error] = await tryCatch(() => ogs({ url }));
+    const [data, error] = await tryCatchAsync(() => ogs({ url }));
     if (error || !data) return null;
     return data as OpenGraphResult;
   }
