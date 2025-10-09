@@ -3,6 +3,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { EnvModule } from '../env/env.module';
 import { EnvService } from '../env/env.service';
+import { UrlClicksModule } from '../url-clicks/url-clicks.module';
 import { UrlController } from './controllers/urls.controller';
 import { UrlPresenter } from './mappers/urls.presenter';
 import { MikroOrmUrlRepository } from './repositories/mikro-orm/mikro-orm-url.repository';
@@ -26,6 +27,7 @@ import { UrlService } from './services/urls.service';
       },
     }),
     EnvModule,
+    UrlClicksModule,
   ],
   controllers: [UrlController],
   providers: [

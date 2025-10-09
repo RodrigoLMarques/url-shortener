@@ -1,25 +1,17 @@
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
-import { EnvService } from 'src/modules/env/env.service';
+import { UrlModel } from 'src/database/entities/urls';
+import { UrlClickMapper } from '../../mappers/url-click.mapper';
 import { UrlClickEntity } from '../../models/url-click.entity';
 import { IUrlClickRepository } from '../url-repository.interface';
-import { UrlClickMapper } from '../../mappers/url-click.mapper';
 
 @Injectable()
 export class MikroOrmUrlClickRepository implements IUrlClickRepository {
-  private protocol: string;
-  private domain: string;
-
-  constructor(
-    private readonly em: EntityManager,
-    private readonly envService: EnvService,
-  ) {
-    this.protocol = this.envService.get('APP_PROTOCOL');
-    this.domain = this.envService.get('APP_DOMAIN');
-  }
+  constructor(private readonly em: EntityManager) {}
 
   async create(entity: UrlClickEntity): Promise<void> {
-    const data = UrlClickMapper.toPersistence(entity);
+    const urlRef = this.em.getReference(UrlModel, entity.props.urlId);
+    const data = UrlClickMapper.toPersistence(entity, urlRef);
     await this.em.persistAndFlush(data);
   }
 }

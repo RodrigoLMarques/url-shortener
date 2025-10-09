@@ -1,4 +1,5 @@
 import { UrlClickModel } from 'src/database/entities/url-clicks';
+import { UrlModel } from 'src/database/entities/urls';
 import { UrlClickEntity } from '../models/url-click.entity';
 
 export class UrlClickMapper {
@@ -20,9 +21,10 @@ export class UrlClickMapper {
     );
   }
 
-  static toPersistence(entity: UrlClickEntity): UrlClickModel {
+  static toPersistence(entity: UrlClickEntity, url: UrlModel): UrlClickModel {
     return Object.assign(new UrlClickModel(), {
       id: entity.id,
+      url,
       clickedAt: entity.props.clickedAt,
       ipAddress: entity.props.ipAddress,
       country: entity.props.country,

@@ -21,7 +21,7 @@ export class UrlModel extends BaseEntity {
   @Unique()
   alias!: string;
 
-  @Property()
+  @Property({ nullable: true })
   expires_at?: Date;
 
   @OneToMany(() => UrlClickModel, (click) => click.url)

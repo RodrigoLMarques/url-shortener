@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { EnvService } from 'src/modules/env/env.service';
 import { UrlEntity } from '../models/url.entity';
 
+@Injectable()
 export class UrlPresenter {
   @ApiProperty({
     description: 'The original URL',
