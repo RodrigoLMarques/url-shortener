@@ -1,9 +1,13 @@
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUrlDto } from '../models/create-url.dto';
+import { ClickData } from 'src/modules/url-clicks/models/url-click.dto';
+import { UrlClicksService } from 'src/modules/url-clicks/services/url-clicks.service';
+import { CreateUrlDto } from '../models/url.dto';
 import { UrlEntity } from '../models/url.entity';
-import type { IUrlRepository } from '../repositories/url-repository.interface';
-import { URL_REPOSITORY } from '../repositories/url-repository.interface';
+import {
+  URL_REPOSITORY,
+  type IUrlRepository,
+} from '../repositories/url-repository.interface';
 
 type UrlJson = ReturnType<UrlEntity['toJSON']>;
 
@@ -14,6 +18,7 @@ export class UrlService {
     private readonly repository: IUrlRepository,
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
+    private readonly urlClicksService: UrlClicksService,
   ) {}
 
   async create(dto: CreateUrlDto): Promise<UrlEntity> {
@@ -23,9 +28,10 @@ export class UrlService {
     return url;
   }
 
-  async redirect(alias: string): Promise<UrlEntity> {
+  async redirect(alias: string, clickData: ClickData): Promise<UrlEntity> {
     const url = await this.getByAlias(alias);
     // TODO: count click
+    await this.urlClicksService.create({ urlId: url.id, clickData });
     return url;
   }
 
