@@ -33,4 +33,9 @@ export class UrlClicksService {
 
     return click;
   }
+
+  async count(urlId: string): Promise<number> {
+    const clickCount = await this.repository.count(urlId);
+    return clickCount;
+  }
 }

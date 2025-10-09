@@ -30,7 +30,6 @@ export class UrlService {
 
   async redirect(alias: string, clickData: ClickData): Promise<UrlEntity> {
     const url = await this.getByAlias(alias);
-    // TODO: count click
     await this.urlClicksService.create({ urlId: url.id, clickData });
     return url;
   }
@@ -41,6 +40,7 @@ export class UrlService {
 
     const url = await this.repository.getByAlias(alias);
     if (!url) throw new NotFoundException('URL not found');
+    url.clickCount = await this.urlClicksService.count(url.id);
 
     await this.cacheUrl(alias, url);
     return url;

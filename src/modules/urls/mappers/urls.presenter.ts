@@ -37,7 +37,7 @@ export class UrlPresenter {
       alias: entity.alias,
       domain,
       shortUrl: `${protocol}://${domain}/${entity.alias}`,
-      clicks: 0, // TODO
+      clicks: entity.clickCount,
     };
   }
 }

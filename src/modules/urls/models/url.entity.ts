@@ -4,6 +4,7 @@ import { Entity } from 'src/core/entity';
 export interface IUrlProps {
   originalUrl: string;
   alias?: string;
+  clickCount?: number;
 }
 
 export class UrlEntity extends Entity<IUrlProps> {
@@ -22,6 +23,13 @@ export class UrlEntity extends Entity<IUrlProps> {
   }
   get alias() {
     return this.props.alias;
+  }
+  get clickCount() {
+    return this.props.clickCount;
+  }
+
+  set clickCount(value: number | undefined) {
+    this.props.clickCount = value;
   }
 
   static create(props: IUrlProps, id?: string) {

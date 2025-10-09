@@ -1,5 +1,6 @@
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import { UrlClickModel } from 'src/database/entities/url-clicks';
 import { UrlModel } from 'src/database/entities/urls';
 import { UrlClickMapper } from '../../mappers/url-click.mapper';
 import { UrlClickEntity } from '../../models/url-click.entity';
@@ -13,5 +14,10 @@ export class MikroOrmUrlClickRepository implements IUrlClickRepository {
     const urlRef = this.em.getReference(UrlModel, entity.props.urlId);
     const data = UrlClickMapper.toPersistence(entity, urlRef);
     await this.em.persistAndFlush(data);
+  }
+
+  async count(urlId: string): Promise<number> {
+    const count = await this.em.count(UrlClickModel, { url: { id: urlId } });
+    return count;
   }
 }
