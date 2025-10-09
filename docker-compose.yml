@@ -9,8 +9,6 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_DB}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     networks:
       - project_network
 
@@ -21,8 +19,6 @@ services:
     ports:
       - '6379:6379'
     command: ["sh", "-c", "redis-server --requirepass $REDIS_PASSWORD"]
-    volumes:
-      - redis_data:/data
     networks:
       - project_network
 
@@ -47,7 +43,3 @@ services:
 networks:
   project_network:
     driver: bridge
-
-volumes:
-  postgres_data:
-  redis_data:

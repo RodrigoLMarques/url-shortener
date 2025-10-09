@@ -11,7 +11,7 @@ async function bootstrap() {
   const envService = app.get(EnvService);
   const mikroORM = app.get(MikroORM);
 
-  mikroORM.getMigrator().up();
+  await mikroORM.getMigrator().up();
 
   app.useGlobalPipes(
     new ValidationPipe({
