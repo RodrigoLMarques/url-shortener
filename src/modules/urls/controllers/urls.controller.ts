@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
   Res,
 } from '@nestjs/common';
 import {
@@ -19,15 +20,19 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
+import { ClickData } from 'src/modules/url-clicks/models/url-click.dto';
 import { UrlPresenter } from '../mappers/urls.presenter';
-import { CreateUrlDto } from '../models/create-url.dto';
+import { CreateUrlDto } from '../models/url.dto';
 import { UrlService } from '../services/urls.service';
 
 @ApiTags('URL Shortener')
 @Controller()
 export class UrlController {
-  constructor(private readonly urlService: UrlService) {}
+  constructor(
+    private readonly urlService: UrlService,
+    private readonly urlPresenter: UrlPresenter,
+  ) {}
 
   @ApiOperation({
     summary: 'Create a new shortened URL',
@@ -58,7 +63,7 @@ export class UrlController {
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() dto: CreateUrlDto) {
     const entity = await this.urlService.create(dto);
-    return new UrlPresenter(entity);
+    return this.urlPresenter.toResponse(entity);
   }
 
   @ApiOperation({
@@ -81,7 +86,7 @@ export class UrlController {
   @Get('urls/:alias')
   async getByAlias(@Param('alias') alias: string) {
     const entity = await this.urlService.getByAlias(alias);
-    return new UrlPresenter(entity);
+    return this.urlPresenter.toResponse(entity);
   }
 
   @ApiOperation({
@@ -112,8 +117,17 @@ export class UrlController {
     description: 'URL not found',
   })
   @Get(':alias')
-  async redirect(@Param('alias') alias: string, @Res() res: Response) {
-    const entity = await this.urlService.redirect(alias);
+  async redirect(
+    @Param('alias') alias: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const clickData: ClickData = {
+      ipAddress: req.ip || req.socket.remoteAddress,
+      referrer: req.get('referer') || req.get('referrer'),
+      userAgent: req.get('user-agent'),
+    };
+    const entity = await this.urlService.redirect(alias, clickData);
     return res.redirect(entity.originalUrl);
   }
 }

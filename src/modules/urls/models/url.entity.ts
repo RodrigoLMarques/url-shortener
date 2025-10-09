@@ -1,32 +1,32 @@
 import { init } from '@paralleldrive/cuid2';
 import { Entity } from 'src/core/entity';
 
-export type IUrlProps = {
+export interface IUrlProps {
   originalUrl: string;
   alias?: string;
-};
+}
 
 export class UrlEntity extends Entity<IUrlProps> {
   constructor(props: IUrlProps, id?: string) {
     super(props, id);
-    this.props.alias = this.props.alias ?? this.generateAlias();
   }
 
-  private generateAlias(): string {
+  private createAlias(): string {
     const createId = init({ length: 4 });
-    return createId();
+    this.props.alias = createId();
+    return this.props.alias;
   }
 
   get originalUrl() {
     return this.props.originalUrl;
   }
-
   get alias() {
     return this.props.alias;
   }
 
   static create(props: IUrlProps, id?: string) {
     const entity = new UrlEntity(props, id);
+    if (!entity.alias) entity.createAlias();
     return entity;
   }
 }

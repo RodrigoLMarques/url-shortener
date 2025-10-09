@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { EnvService } from 'src/modules/env/env.service';
 import { UrlEntity } from '../models/url.entity';
 
 export class UrlPresenter {
@@ -23,11 +24,18 @@ export class UrlPresenter {
   @ApiProperty({ description: 'Number of clicks on the URL', example: 0 })
   clicks: number;
 
-  constructor(entity: UrlEntity) {
-    this.originalUrl = entity.originalUrl;
-    this.shortUrl = entity.shortUrl;
-    this.alias = entity.alias!;
-    this.domain = entity.domain;
-    this.clicks = entity.clicks!;
+  constructor(private readonly env: EnvService) {}
+
+  toResponse(entity: UrlEntity) {
+    const protocol = this.env.get('APP_PROTOCOL');
+    const domain = this.env.get('APP_DOMAIN');
+
+    return {
+      originalUrl: entity.originalUrl,
+      alias: entity.alias,
+      domain,
+      shortUrl: `${protocol}://${domain}/${entity.alias}`,
+      clicks: 0, // TODO
+    };
   }
 }
