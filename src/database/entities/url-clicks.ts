@@ -31,6 +31,6 @@ export class UrlClickModel extends BaseEntity {
   @Property({ nullable: true })
   browser?: string;
 
-  @ManyToOne()
+  @ManyToOne(() => UrlModel)
   url!: UrlModel;
 }

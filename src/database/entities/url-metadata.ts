@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, Property } from '@mikro-orm/core';
+import { Entity, OneToOne, Property } from '@mikro-orm/core';
 import { BaseEntity } from './base-entity';
 import { UrlModel } from './urls';
 
@@ -22,6 +22,6 @@ export class UrlMetadataModel extends BaseEntity {
   @Property({ fieldName: 'fetched_at', nullable: true })
   fetchedAt?: Date;
 
-  @ManyToOne()
+  @OneToOne(() => UrlModel, (url) => url.metadata, { owner: true })
   url!: UrlModel;
 }
