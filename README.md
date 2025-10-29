@@ -44,9 +44,9 @@ This is a production-ready URL shortening service that provides:
 - **Caching**: Redis-based caching for improved performance
 - **Documentation**: Interactive Swagger UI
 
-**API Production**: https://link.marquesdev.com
+**API Production**: https://api.link.marquesdev.com
 
-**WEB Production**: https://link.marquesdev.com/web
+**WEB Production**: https://link.marquesdev.com
 
 **Frontend Repository**: [url-shortener-web](https://github.com/RodrigoLMarques/url-shortener-web)
 
@@ -65,7 +65,7 @@ This is a production-ready URL shortening service that provides:
 Interactive API documentation is available at `/docs`:
 
 - **Development**: http://localhost:3000/docs
-- **Production**: https://link.marquesdev.com/docs
+- **Production**: https://api.link.marquesdev.com/docs
 
 ## Database Documentation
 

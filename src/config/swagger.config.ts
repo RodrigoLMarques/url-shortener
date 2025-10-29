@@ -23,5 +23,5 @@ Features:
   .setLicense('MIT', 'https://opensource.org/licenses/MIT')
   .addTag('URL Shortener', 'Endpoints for URL management')
   .addServer('http://localhost:3000', 'Development server')
-  .addServer('https://link.marquesdev.com', 'Production server')
+  .addServer('https://api.link.marquesdev.com', 'Production server')
   .build();
